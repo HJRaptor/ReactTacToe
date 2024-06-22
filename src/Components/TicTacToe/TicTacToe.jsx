@@ -5,6 +5,8 @@ import cross_icon from '../Assets/cross.png';
 
 let data = ["","","","","","","","",""]
 
+let score = 0
+
 const TicTacToe = () => {
     let [count, setCount] = useState(0);
     let [lock, setLock] = useState(false);
@@ -24,6 +26,12 @@ const TicTacToe = () => {
         checkWin();
     }
 
+    const checkBoardFull = () =>{
+        if (data[0] !== "" && data[1] !== "" && data[2] !== "" && data[3] !== "" && data[4] !== "" && data[5] !== "" && data[6] !== "" && data[7] !== "" && data[8] !== "" && data[9] !== ""){
+            
+        }
+    }
+
     const checkWin = () => {
         const winPatterns = [
             [0, 1, 2],
@@ -40,6 +48,7 @@ const TicTacToe = () => {
             const [a, b, c] = pattern;
             if (data[a] && data[a] === data[b] && data[a] === data[c]) {
                 setLock(true);
+                score +=1;
                 return;
             }
         }
@@ -56,6 +65,7 @@ const TicTacToe = () => {
         <div>
             <div className='container'>
                 <h1 className="title">Tic Tac Toe<span></span></h1>
+                <button className="score">Score : {score}</button>
                 <div className="board">
                     <div className="row1">
                         <div className="boxes" onClick={(e) => { toggle(e, 0) }}></div>

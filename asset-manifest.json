@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/HJRaptor/reacttactoe/static/css/main.3fe52bd0.css",
+    "main.js": "/HJRaptor/reacttactoe/static/js/main.072a2bcf.js",
+    "static/js/453.3b7da351.chunk.js": "/HJRaptor/reacttactoe/static/js/453.3b7da351.chunk.js",
+    "index.html": "/HJRaptor/reacttactoe/index.html",
+    "main.3fe52bd0.css.map": "/HJRaptor/reacttactoe/static/css/main.3fe52bd0.css.map",
+    "main.072a2bcf.js.map": "/HJRaptor/reacttactoe/static/js/main.072a2bcf.js.map",
+    "453.3b7da351.chunk.js.map": "/HJRaptor/reacttactoe/static/js/453.3b7da351.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3fe52bd0.css",
+    "static/js/main.072a2bcf.js"
+  ]
+}

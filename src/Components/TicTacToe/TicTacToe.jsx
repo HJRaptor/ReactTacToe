@@ -6,6 +6,8 @@ import cross_icon from '../Assets/cross.png';
 let data = ["", "", "", "", "", "", "", "", ""];
 let score = 0;
 let aiscore = 0;
+let webtitle = "Tic Tac Toe"
+
 
 const ai = () => {
     const emptyCells = data.reduce((acc, val, index) => {
@@ -38,8 +40,8 @@ const TicTacToe = () => {
         } else {
             e.target.innerHTML = `<img src='${cross_icon}'>`;
             data[num] = "x";
-            //randomNumberlist.splice(num,1)
-            ai();
+            setTimeout(ai(),3000)
+            
         }
         setCount(count + 1);
         checkWin();
@@ -62,8 +64,10 @@ const TicTacToe = () => {
             if (data[a] && data[a] === data[b] && data[a] === data[c]) {
                 setLock(true);
                 if (data[a] === "x") {
+                    webtitle = "You won..."
                     score += 1;
                 } else if (data[a] === "o") {
+                    webtitle = "You lost!"
                     aiscore += 1;
                 }
                 return;
@@ -76,13 +80,13 @@ const TicTacToe = () => {
         setCount(0);
         setLock(false);
         document.querySelectorAll('.boxes').forEach(box => box.innerHTML = '');
-        let randomNumberlist = [0,1,2,3,4,5,6,7,8];
+        webtitle = "Tic Tac Toe"
     }
 
     return (
         <div>
             <div className='container'>
-                <h1 className="title">Tic Tac Toe<span></span></h1>
+                <h1 className="title">{webtitle}<span></span></h1>
                 <button className="score">You : {score}</button>
                 <button className="score">AI : {aiscore}</button>
                 <div className="board">
@@ -103,6 +107,7 @@ const TicTacToe = () => {
                     </div>
                 </div>
                 <button className="reset" onClick={resetGame}>Reset</button>
+                <footer><h4 className="footer" font>HJRaptor 2024</h4></footer>
             </div>
         </div>
     );

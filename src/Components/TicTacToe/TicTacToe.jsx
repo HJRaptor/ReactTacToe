@@ -33,7 +33,7 @@ const TicTacToe = () => {
 
     const toggle = (e, num) => {
         
-        if (lock === false && data[num] !== "") {
+        if (lock || data[num]) {
             return;
         } else {
             e.target.innerHTML = `<img src='${cross_icon}'>`;

@@ -2,24 +2,29 @@ import React, { useState } from "react";
 import './TicTacToe.css';
 import circle_icon from '../Assets/circle.png';
 import cross_icon from '../Assets/cross.png';
+import { wait } from "@testing-library/user-event/dist/utils";
 
 let data = ["", "", "", "", "", "", "", "", ""];
 let score = 0;
 let aiscore = 0;
 
-const ai = (e) => {
+
+const ai = (num) => {
     let moved = false;
     while (!moved) {
-        let move = Math.floor(Math.random() * 9);
-        if (data[move] !== "") {
-            continue;
-        } else {
-            data[move] = "o";
-            e.target.innerHTML = `<img src='${circle_icon}'>`;
-            moved = true;
+      let move = Math.floor(Math.random() * 9);
+      if (data[move] !== "") {
+        continue;
+      } else {
+        data[move] = "o";
+        let box = document.getElementById(`box${move}`);
+        if (box) {
+          box.innerHTML = `<img src='${circle_icon}' alt='Circle'>`;
         }
+        moved = true;
+      }
     }
-}
+  };
 
 const TicTacToe = () => {
     let [count, setCount] = useState(0);
@@ -32,7 +37,7 @@ const TicTacToe = () => {
         } else {
             e.target.innerHTML = `<img src='${cross_icon}'>`;
             data[num] = "x";
-            ai(e);
+            ai();
         }
         setCount(count + 1);
         checkWin();
@@ -79,19 +84,19 @@ const TicTacToe = () => {
                 <button className="score">AI : {aiscore}</button>
                 <div className="board">
                     <div className="row1">
-                        <div className="boxes" onClick={(e) => { toggle(e, 0) }}></div>
-                        <div className="boxes" onClick={(e) => { toggle(e, 1) }}></div>
-                        <div className="boxes" onClick={(e) => { toggle(e, 2) }}></div>
+                        <div id="box0" className="boxes" onClick={(e) => { toggle(e, 0) }}></div>
+                        <div id="box1" className="boxes" onClick={(e) => { toggle(e, 1) }}></div>
+                        <div id="box2" className="boxes" onClick={(e) => { toggle(e, 2) }}></div>
                     </div>
                     <div className="row1">
-                        <div className="boxes" onClick={(e) => { toggle(e, 3) }}></div>
-                        <div className="boxes" onClick={(e) => { toggle(e, 4) }}></div>
-                        <div className="boxes" onClick={(e) => { toggle(e, 5) }}></div>
+                        <div id="box3" className="boxes" onClick={(e) => { toggle(e, 3) }}></div>
+                        <div id="box4" className="boxes" onClick={(e) => { toggle(e, 4) }}></div>
+                        <div id="box5" className="boxes" onClick={(e) => { toggle(e, 5) }}></div>
                     </div>
                     <div className="row1">
-                        <div className="boxes" onClick={(e) => { toggle(e, 6) }}></div>
-                        <div className="boxes" onClick={(e) => { toggle(e, 7) }}></div>
-                        <div className="boxes" onClick={(e) => { toggle(e, 8) }}></div>
+                        <div id="box6" className="boxes" onClick={(e) => { toggle(e, 6) }}></div>
+                        <div id="box7" className="boxes" onClick={(e) => { toggle(e, 7) }}></div>
+                        <div id="box8" className="boxes" onClick={(e) => { toggle(e, 8) }}></div>
                     </div>
                 </div>
                 <button className="reset" onClick={resetGame}>Reset</button>

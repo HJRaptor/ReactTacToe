@@ -3,33 +3,39 @@ import './TicTacToe.css';
 import circle_icon from '../Assets/circle.png';
 import cross_icon from '../Assets/cross.png';
 
-let data = ["","","","","","","","",""]
+let data = ["", "", "", "", "", "", "", "", ""];
+let score = 0;
+let aiscore = 0;
 
-let score = 0
+const ai = (e) => {
+    let moved = false;
+    while (!moved) {
+        let move = Math.floor(Math.random() * 9);
+        if (data[move] !== "") {
+            continue;
+        } else {
+            data[move] = "o";
+            e.target.innerHTML = `<img src='${circle_icon}'>`;
+            moved = true;
+        }
+    }
+}
 
 const TicTacToe = () => {
     let [count, setCount] = useState(0);
     let [lock, setLock] = useState(false);
 
     const toggle = (e, num) => {
+        
         if (lock || data[num]) {
             return;
-        }
-        if (count % 2 === 0) {
+        } else {
             e.target.innerHTML = `<img src='${cross_icon}'>`;
             data[num] = "x";
-        } else {
-            e.target.innerHTML = `<img src='${circle_icon}'>`;
-            data[num] = "o";
+            ai(e);
         }
         setCount(count + 1);
         checkWin();
-    }
-
-    const checkBoardFull = () =>{
-        if (data[0] !== "" && data[1] !== "" && data[2] !== "" && data[3] !== "" && data[4] !== "" && data[5] !== "" && data[6] !== "" && data[7] !== "" && data[8] !== "" && data[9] !== ""){
-            
-        }
     }
 
     const checkWin = () => {
@@ -48,7 +54,11 @@ const TicTacToe = () => {
             const [a, b, c] = pattern;
             if (data[a] && data[a] === data[b] && data[a] === data[c]) {
                 setLock(true);
-                score +=1;
+                if (data[a] === "x") {
+                    score += 1;
+                } else if (data[a] === "o") {
+                    aiscore += 1;
+                }
                 return;
             }
         }
@@ -65,7 +75,8 @@ const TicTacToe = () => {
         <div>
             <div className='container'>
                 <h1 className="title">Tic Tac Toe<span></span></h1>
-                <button className="score">Score : {score}</button>
+                <button className="score">You : {score}</button>
+                <button className="score">AI : {aiscore}</button>
                 <div className="board">
                     <div className="row1">
                         <div className="boxes" onClick={(e) => { toggle(e, 0) }}></div>

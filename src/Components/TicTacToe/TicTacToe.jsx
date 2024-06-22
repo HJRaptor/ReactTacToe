@@ -2,29 +2,30 @@ import React, { useState } from "react";
 import './TicTacToe.css';
 import circle_icon from '../Assets/circle.png';
 import cross_icon from '../Assets/cross.png';
-import { wait } from "@testing-library/user-event/dist/utils";
 
 let data = ["", "", "", "", "", "", "", "", ""];
 let score = 0;
 let aiscore = 0;
 
+const ai = () => {
+    const emptyCells = data.reduce((acc, val, index) => {
+        if (val === "") acc.push(index);
+        return acc;
+    }, []);
 
-const ai = (num) => {
-    let moved = false;
-    while (!moved) {
-      let move = Math.floor(Math.random() * 9);
-      if (data[move] !== "") {
-        continue;
-      } else {
-        data[move] = "o";
-        let box = document.getElementById(`box${move}`);
-        if (box) {
-          box.innerHTML = `<img src='${circle_icon}' alt='Circle'>`;
-        }
-        moved = true;
-      }
+    if (emptyCells.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const move = emptyCells[randomIndex];
+
+    data[move] = "o";
+
+    const box = document.getElementById(`box${move}`);
+    if (box) {
+        box.innerHTML = `<img src='${circle_icon}' alt='Circle'>`;
     }
-  };
+};
+
 
 const TicTacToe = () => {
     let [count, setCount] = useState(0);
@@ -32,11 +33,12 @@ const TicTacToe = () => {
 
     const toggle = (e, num) => {
         
-        if (lock || data[num]) {
+        if (lock === false && data[num] !== "") {
             return;
         } else {
             e.target.innerHTML = `<img src='${cross_icon}'>`;
             data[num] = "x";
+            //randomNumberlist.splice(num,1)
             ai();
         }
         setCount(count + 1);
@@ -74,6 +76,7 @@ const TicTacToe = () => {
         setCount(0);
         setLock(false);
         document.querySelectorAll('.boxes').forEach(box => box.innerHTML = '');
+        let randomNumberlist = [0,1,2,3,4,5,6,7,8];
     }
 
     return (
